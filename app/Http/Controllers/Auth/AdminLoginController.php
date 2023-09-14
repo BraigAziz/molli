@@ -36,4 +36,18 @@ class AdminLoginController extends Controller
 
         return back()->withInput($request->only('email', 'remember'));
     }
+
+    public function logout(Request $request)
+    {
+        \Auth::guard('admin')->logout();
+
+        // If you want to invalidate the current session, you can do this:
+        $request->session()->invalidate();
+
+        // Redirect to the admin login page or wherever you want after logout
+        return redirect('/admin/login');
+    }
+
+
+
 }

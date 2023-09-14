@@ -40,18 +40,18 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-    
+
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
         ],
-    
+
         'assistant' => [
             'driver' => 'session',
             'provider' => 'assistants',
         ],
     ],
-    
+
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -74,24 +74,26 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-    
+
         'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
+            'model' => App\Models\Admin\Admin::class,
+            'table' => 'admins',
         ],
-    
+
         'assistants' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Assistant::class,
+            'model' => App\Models\Assistant\Assistant::class,
+            'table'=>'assistants',
         ],
     ],
-    
+
 
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-    
+
 
     /*
     |--------------------------------------------------------------------------

@@ -8,8 +8,8 @@
                 <div class="card-header">{{ $title ?? "" }} {{ __('Login') }}</div>
 
                 <div class="card-body">
-                    @isset($route)
-                        <form method="POST" action="{{ $route }}">
+                    @isset($url)
+                        <form method="POST" action="{{ $url }}">
                     @else
                         <form method="POST" action="{{ route('login') }}">
                     @endisset

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Replacer</title>
+</head>
+<body>
+
+<textarea id="content" rows="20" cols="50" style="width:100%">
+<!-- This is just an example. You can paste your content here. -->
+<img src="link1.png">
+<a href='link2.html'>Click me</a>
+<a href="link3.html">Click me too</a>
+</textarea>
+
+<button onclick="replaceSrc()">Replace Src</button>
+<button onclick="replaceHref()">Replace Href</button>
+
+<script>
+    function replaceSrc() {
+        let content = document.getElementById("content").value;
+        let replacedContentSrc = content.replace(/src="([^"]+)"/g, 'src="{{ asset(\'$1\') }}"');
+        document.getElementById("content").value = replacedContentSrc;
+    }
+
+    function replaceHref() {
+        let content = document.getElementById("content").value;
+        let replacedContentHref = content.replace(/href='([^']+)'/g, "href='{{ asset('$1') }}'");
+        let replacedContentHrefDoubleQuotes = replacedContentHref.replace(/href="([^"]+)"/g, 'href="{{ asset(\'$1\') }}"');
+        document.getElementById("content").value = replacedContentHrefDoubleQuotes;
+    }
+</script>
+
+</body>
+</html>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -26,4 +27,8 @@ class HomeController extends Controller
     {
         return view('client.home');
     }
+
+
+
+
 }

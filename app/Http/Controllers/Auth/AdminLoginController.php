@@ -1,5 +1,5 @@
 <?php
-
+//vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesUsers.php
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -47,7 +47,4 @@ class AdminLoginController extends Controller
         // Redirect to the admin login page or wherever you want after logout
         return redirect('/admin/login');
     }
-
-
-
 }

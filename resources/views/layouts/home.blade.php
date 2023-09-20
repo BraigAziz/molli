@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- molla/index-1.html  22 Nov 2019 09:55:06 GMT -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,27 +10,27 @@
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
-    <link rel="manifest" href="assets/images/icons/site.html">
-    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
-    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/images/icons/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/icons/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/icons/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('assets/images/icons/site.html') }}">
+    <link rel="mask-icon" href="{{ asset('assets/images/icons/safari-pinned-tab.svg') }}" color="#666666">
+    <link rel="shortcut icon" href="{{ asset('assets/images/icons/favicon.ico') }}">
     <meta name="apple-mobile-web-app-title" content="Molla">
     <meta name="application-name" content="Molla">
     <meta name="msapplication-TileColor" content="#cc9966">
     <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css') }}">
     <!-- Plugins CSS File -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="assets/css/plugins/magnific-popup/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/plugins/jquery.countdown.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins/owl-carousel/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins/magnific-popup/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins/jquery.countdown.css') }}">
     <!-- Main CSS File -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/skins/skin-demo-2.css">
-    <link rel="stylesheet" href="assets/css/demos/demo-2.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/skins/skin-demo-2.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/demos/demo-2.css') }}">
 </head>
 
 <body>
@@ -41,39 +39,66 @@
         <div class="header-top">
             <div class="container">
                 <div class="header-left">
-                    <p>Special collection already available.</p><a href="#">&nbsp;Read more ...</a>
+                    <p>Special collection already available.</p><a href="{{ asset('#') }}">&nbsp;Read more ...</a>
                 </div><!-- End .header-left -->
 
                 <div class="header-right">
 
                     <ul class="top-menu">
                         <li>
-                            <a href="#">Links</a>
+                            <a href="{{ asset('#') }}">Links</a>
                             <ul>
                                 <li>
                                     <div class="header-dropdown">
-                                        <a href="#">USD</a>
+                                        <a href="{{ asset('#') }}">USD</a>
                                         <div class="header-menu">
                                             <ul>
-                                                <li><a href="#">Eur</a></li>
-                                                <li><a href="#">Usd</a></li>
+                                                <li><a href="{{ asset('#') }}">Eur</a></li>
+                                                <li><a href="{{ asset('#') }}">Usd</a></li>
                                             </ul>
                                         </div><!-- End .header-menu -->
                                     </div>
                                 </li>
                                 <li>
                                     <div class="header-dropdown">
-                                        <a href="#">English</a>
+                                        <a href="{{ asset('#') }}">English</a>
                                         <div class="header-menu">
                                             <ul>
-                                                <li><a href="#">English</a></li>
-                                                <li><a href="#">French</a></li>
-                                                <li><a href="#">Spanish</a></li>
+                                                <li><a href="{{ asset('#') }}">English</a></li>
+                                                <li><a href="{{ asset('#') }}">French</a></li>
+                                                <li><a href="{{ asset('#') }}">Spanish</a></li>
                                             </ul>
                                         </div><!-- End .header-menu -->
                                     </div>
                                 </li>
-                                <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
+                                <li>
+                                    @guest
+                                        @if (Route::has('login'))
+                                            <a href="{{ route('login') }}">Sign in / Sign up</a>
+                                        @endif
+                                    @else
+                                        <div class="header-dropdown">
+                                            <a href="{{ asset('#') }}">{{ Auth::user()->name }}</a>
+                                            <div class="header-menu">
+                                                <ul>
+                                                    <li><a href="">My account</a></li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                                           onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                                            Logout
+                                                        </a>
+
+                                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                            @csrf
+                                                        </form>
+                                                    </li>
+
+                                                </ul>
+                                            </div><!-- End .header-menu -->
+                                        </div>
+                                    @endguest
+                                </li>
                             </ul>
                         </li>
                     </ul><!-- End .top-menu -->
@@ -90,14 +115,14 @@
                         <i class="icon-bars"></i>
                     </button>
 
-                    <a href="index.html" class="logo">
-                        <img src="assets/images/demos/demo-2/logo.png" alt="Molla Logo" width="105" height="25">
+                    <a href="{{ asset('index.html') }}" class="logo">
+                        <img src="{{ asset('assets/images/demos/demo-2/logo.png') }}" alt="Molla Logo" width="105" height="25">
                     </a>
                 </div><!-- End .header-left -->
 
                 <div class="header-center">
                     <div class="header-search header-search-extended header-search-visible header-search-no-radius d-none d-lg-block">
-                        <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                        <a href="{{ asset('#') }}" class="search-toggle" role="button"><i class="icon-search"></i></a>
                         <form action="#" method="get">
                             <div class="header-search-wrapper search-wrapper-wide">
                                 <label for="q" class="sr-only">Search</label>
@@ -110,7 +135,7 @@
 
                 <div class="header-right">
                     <div class="account">
-                        <a href="dashboard.html" title="My account">
+                        <a href="{{ asset('dashboard.html') }}" title="My account">
                             <div class="icon">
                                 <i class="icon-user"></i>
                             </div>
@@ -119,7 +144,7 @@
                     </div><!-- End .compare-dropdown -->
 
                     <div class="wishlist">
-                        <a href="wishlist.html" title="Wishlist">
+                        <a href="{{ asset('wishlist.html') }}" title="Wishlist">
                             <div class="icon">
                                 <i class="icon-heart-o"></i>
                                 <span class="wishlist-count badge">3</span>
@@ -129,7 +154,7 @@
                     </div><!-- End .compare-dropdown -->
 
                     <div class="dropdown cart-dropdown">
-                        <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                        <a href="{{ asset('#') }}" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                             <div class="icon">
                                 <i class="icon-shopping-cart"></i>
                                 <span class="cart-count">2</span>
@@ -142,7 +167,7 @@
                                 <div class="product">
                                     <div class="product-cart-details">
                                         <h4 class="product-title">
-                                            <a href="product.html">Beige knitted elastic runner shoes</a>
+                                            <a href="{{ asset('product.html') }}">Beige knitted elastic runner shoes</a>
                                         </h4>
 
                                         <span class="cart-product-info">
@@ -152,17 +177,17 @@
                                     </div><!-- End .product-cart-details -->
 
                                     <figure class="product-image-container">
-                                        <a href="product.html" class="product-image">
-                                            <img src="assets/images/products/cart/product-1.jpg" alt="product">
+                                        <a href="{{ asset('product.html') }}" class="product-image">
+                                            <img src="{{ asset('assets/images/products/cart/product-1.jpg') }}" alt="product">
                                         </a>
                                     </figure>
-                                    <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                    <a href="{{ asset('#') }}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
                                 </div><!-- End .product -->
 
                                 <div class="product">
                                     <div class="product-cart-details">
                                         <h4 class="product-title">
-                                            <a href="product.html">Blue utility pinafore denim dress</a>
+                                            <a href="{{ asset('product.html') }}">Blue utility pinafore denim dress</a>
                                         </h4>
 
                                         <span class="cart-product-info">
@@ -172,11 +197,11 @@
                                     </div><!-- End .product-cart-details -->
 
                                     <figure class="product-image-container">
-                                        <a href="product.html" class="product-image">
-                                            <img src="assets/images/products/cart/product-2.jpg" alt="product">
+                                        <a href="{{ asset('product.html') }}" class="product-image">
+                                            <img src="{{ asset('assets/images/products/cart/product-2.jpg') }}" alt="product">
                                         </a>
                                     </figure>
-                                    <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                    <a href="{{ asset('#') }}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
                                 </div><!-- End .product -->
                             </div><!-- End .cart-product -->
 
@@ -187,8 +212,8 @@
                             </div><!-- End .dropdown-cart-total -->
 
                             <div class="dropdown-cart-action">
-                                <a href="cart.html" class="btn btn-primary">View Cart</a>
-                                <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                                <a href="{{ asset('cart.html') }}" class="btn btn-primary">View Cart</a>
+                                <a href="{{ asset('checkout.html') }}" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                             </div><!-- End .dropdown-cart-total -->
                         </div><!-- End .dropdown-menu -->
                     </div><!-- End .cart-dropdown -->
@@ -200,24 +225,24 @@
             <div class="container">
                 <div class="header-left">
                     <div class="dropdown category-dropdown">
-                        <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
+                        <a href="{{ asset('#') }}" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
                             Browse Categories
                         </a>
 
                         <div class="dropdown-menu">
                             <nav class="side-nav">
                                 <ul class="menu-vertical sf-arrows">
-                                    <li class="item-lead"><a href="#">Daily offers</a></li>
-                                    <li class="item-lead"><a href="#">Gift Ideas</a></li>
-                                    <li><a href="#">Beds</a></li>
-                                    <li><a href="#">Lighting</a></li>
-                                    <li><a href="#">Sofas & Sleeper sofas</a></li>
-                                    <li><a href="#">Storage</a></li>
-                                    <li><a href="#">Armchairs & Chaises</a></li>
-                                    <li><a href="#">Decoration </a></li>
-                                    <li><a href="#">Kitchen Cabinets</a></li>
-                                    <li><a href="#">Coffee & Tables</a></li>
-                                    <li><a href="#">Outdoor Furniture </a></li>
+                                    <li class="item-lead"><a href="{{ asset('#') }}">Daily offers</a></li>
+                                    <li class="item-lead"><a href="{{ asset('#') }}">Gift Ideas</a></li>
+                                    <li><a href="{{ asset('#') }}">Beds</a></li>
+                                    <li><a href="{{ asset('#') }}">Lighting</a></li>
+                                    <li><a href="{{ asset('#') }}">Sofas & Sleeper sofas</a></li>
+                                    <li><a href="{{ asset('#') }}">Storage</a></li>
+                                    <li><a href="{{ asset('#') }}">Armchairs & Chaises</a></li>
+                                    <li><a href="{{ asset('#') }}">Decoration </a></li>
+                                    <li><a href="{{ asset('#') }}">Kitchen Cabinets</a></li>
+                                    <li><a href="{{ asset('#') }}">Coffee & Tables</a></li>
+                                    <li><a href="{{ asset('#') }}">Outdoor Furniture </a></li>
                                 </ul><!-- End .menu-vertical -->
                             </nav><!-- End .side-nav -->
                         </div><!-- End .dropdown-menu -->
@@ -228,7 +253,7 @@
                     <nav class="main-nav">
                         <ul class="menu sf-arrows">
                             <li class="megamenu-container active">
-                                <a href="index.html" class="sf-with-ul">Home</a>
+                                <a href="{{ asset('index.html') }}" class="sf-with-ul">Home</a>
 
                                 <div class="megamenu demo">
                                     <div class="menu-col">
@@ -236,168 +261,168 @@
 
                                         <div class="demo-list">
                                             <div class="demo-item">
-                                                <a href="index-1.html">
+                                                <a href="{{ asset('index-1.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/1.jpg);"></span>
                                                     <span class="demo-title">01 - furniture store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item">
-                                                <a href="index-2.html">
+                                                <a href="{{ asset('index-2.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/2.jpg);"></span>
                                                     <span class="demo-title">02 - furniture store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item">
-                                                <a href="index-3.html">
+                                                <a href="{{ asset('index-3.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/3.jpg);"></span>
                                                     <span class="demo-title">03 - electronic store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item">
-                                                <a href="index-4.html">
+                                                <a href="{{ asset('index-4.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/4.jpg);"></span>
                                                     <span class="demo-title">04 - electronic store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item">
-                                                <a href="index-5.html">
+                                                <a href="{{ asset('index-5.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/5.jpg);"></span>
                                                     <span class="demo-title">05 - fashion store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item">
-                                                <a href="index-6.html">
+                                                <a href="{{ asset('index-6.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/6.jpg);"></span>
                                                     <span class="demo-title">06 - fashion store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item">
-                                                <a href="index-7.html">
+                                                <a href="{{ asset('index-7.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/7.jpg);"></span>
                                                     <span class="demo-title">07 - fashion store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item">
-                                                <a href="index-8.html">
+                                                <a href="{{ asset('index-8.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/8.jpg);"></span>
                                                     <span class="demo-title">08 - fashion store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item">
-                                                <a href="index-9.html">
+                                                <a href="{{ asset('index-9.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/9.jpg);"></span>
                                                     <span class="demo-title">09 - fashion store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item">
-                                                <a href="index-10.html">
+                                                <a href="{{ asset('index-10.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/10.jpg);"></span>
                                                     <span class="demo-title">10 - shoes store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item hidden">
-                                                <a href="index-11.html">
+                                                <a href="{{ asset('index-11.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/11.jpg);"></span>
                                                     <span class="demo-title">11 - furniture simple store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item hidden">
-                                                <a href="index-12.html">
+                                                <a href="{{ asset('index-12.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/12.jpg);"></span>
                                                     <span class="demo-title">12 - fashion simple store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item hidden">
-                                                <a href="index-13.html">
+                                                <a href="{{ asset('index-13.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/13.jpg);"></span>
                                                     <span class="demo-title">13 - market</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item hidden">
-                                                <a href="index-14.html">
+                                                <a href="{{ asset('index-14.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/14.jpg);"></span>
                                                     <span class="demo-title">14 - market fullwidth</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item hidden">
-                                                <a href="index-15.html">
+                                                <a href="{{ asset('index-15.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/15.jpg);"></span>
                                                     <span class="demo-title">15 - lookbook 1</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item hidden">
-                                                <a href="index-16.html">
+                                                <a href="{{ asset('index-16.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/16.jpg);"></span>
                                                     <span class="demo-title">16 - lookbook 2</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item hidden">
-                                                <a href="index-17.html">
+                                                <a href="{{ asset('index-17.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/17.jpg);"></span>
                                                     <span class="demo-title">17 - fashion store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item hidden">
-                                                <a href="index-18.html">
+                                                <a href="{{ asset('index-18.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/18.jpg);"></span>
                                                     <span class="demo-title">18 - fashion store (with sidebar)</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item hidden">
-                                                <a href="index-19.html">
+                                                <a href="{{ asset('index-19.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/19.jpg);"></span>
                                                     <span class="demo-title">19 - games store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item hidden">
-                                                <a href="index-20.html">
+                                                <a href="{{ asset('index-20.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/20.jpg);"></span>
                                                     <span class="demo-title">20 - book store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item hidden">
-                                                <a href="index-21.html">
+                                                <a href="{{ asset('index-21.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/21.jpg);"></span>
                                                     <span class="demo-title">21 - sport store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item hidden">
-                                                <a href="index-22.html">
+                                                <a href="{{ asset('index-22.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/22.jpg);"></span>
                                                     <span class="demo-title">22 - tools store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item hidden">
-                                                <a href="index-23.html">
+                                                <a href="{{ asset('index-23.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/23.jpg);"></span>
                                                     <span class="demo-title">23 - fashion left navigation store</span>
                                                 </a>
                                             </div><!-- End .demo-item -->
 
                                             <div class="demo-item hidden">
-                                                <a href="index-24.html">
+                                                <a href="{{ asset('index-24.html') }}">
                                                     <span class="demo-bg" style="background-image: url(assets/images/menu/demos/24.jpg);"></span>
                                                     <span class="demo-title">24 - extreme sport store</span>
                                                 </a>
@@ -406,13 +431,13 @@
                                         </div><!-- End .demo-list -->
 
                                         <div class="megamenu-action text-center">
-                                            <a href="#" class="btn btn-outline-primary-2 view-all-demos"><span>View All Demos</span><i class="icon-long-arrow-right"></i></a>
+                                            <a href="{{ asset('#') }}" class="btn btn-outline-primary-2 view-all-demos"><span>View All Demos</span><i class="icon-long-arrow-right"></i></a>
                                         </div><!-- End .text-center -->
                                     </div><!-- End .menu-col -->
                                 </div><!-- End .megamenu -->
                             </li>
                             <li>
-                                <a href="category.html" class="sf-with-ul">Shop</a>
+                                <a href="{{ asset('category.html') }}" class="sf-with-ul">Shop</a>
 
                                 <div class="megamenu megamenu-md">
                                     <div class="row no-gutters">
@@ -422,33 +447,33 @@
                                                     <div class="col-md-6">
                                                         <div class="menu-title">Shop with sidebar</div><!-- End .menu-title -->
                                                         <ul>
-                                                            <li><a href="category-list.html">Shop List</a></li>
-                                                            <li><a href="category-2cols.html">Shop Grid 2 Columns</a></li>
-                                                            <li><a href="category.html">Shop Grid 3 Columns</a></li>
-                                                            <li><a href="category-4cols.html">Shop Grid 4 Columns</a></li>
-                                                            <li><a href="category-market.html"><span>Shop Market<span class="tip tip-new">New</span></span></a></li>
+                                                            <li><a href="{{ asset('category-list.html') }}">Shop List</a></li>
+                                                            <li><a href="{{ asset('category-2cols.html') }}">Shop Grid 2 Columns</a></li>
+                                                            <li><a href="{{ asset('category.html') }}">Shop Grid 3 Columns</a></li>
+                                                            <li><a href="{{ asset('category-4cols.html') }}">Shop Grid 4 Columns</a></li>
+                                                            <li><a href="{{ asset('category-market.html') }}"><span>Shop Market<span class="tip tip-new">New</span></span></a></li>
                                                         </ul>
 
                                                         <div class="menu-title">Shop no sidebar</div><!-- End .menu-title -->
                                                         <ul>
-                                                            <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
-                                                            <li><a href="category-fullwidth.html">Shop Fullwidth No Sidebar</a></li>
+                                                            <li><a href="{{ asset('category-boxed.html') }}"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
+                                                            <li><a href="{{ asset('category-fullwidth.html') }}">Shop Fullwidth No Sidebar</a></li>
                                                         </ul>
                                                     </div><!-- End .col-md-6 -->
 
                                                     <div class="col-md-6">
                                                         <div class="menu-title">Product Category</div><!-- End .menu-title -->
                                                         <ul>
-                                                            <li><a href="product-category-boxed.html">Product Category Boxed</a></li>
-                                                            <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>
+                                                            <li><a href="{{ asset('product-category-boxed.html') }}">Product Category Boxed</a></li>
+                                                            <li><a href="{{ asset('product-category-fullwidth.html') }}"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>
                                                         </ul>
                                                         <div class="menu-title">Shop Pages</div><!-- End .menu-title -->
                                                         <ul>
-                                                            <li><a href="cart.html">Cart</a></li>
-                                                            <li><a href="checkout.html">Checkout</a></li>
-                                                            <li><a href="wishlist.html">Wishlist</a></li>
-                                                            <li><a href="dashboard.html">My Account</a></li>
-                                                            <li><a href="#">Lookbook</a></li>
+                                                            <li><a href="{{ asset('cart.html') }}">Cart</a></li>
+                                                            <li><a href="{{ asset('checkout.html') }}">Checkout</a></li>
+                                                            <li><a href="{{ asset('wishlist.html') }}">Wishlist</a></li>
+                                                            <li><a href="{{ asset('dashboard.html') }}">My Account</a></li>
+                                                            <li><a href="{{ asset('#') }}">Lookbook</a></li>
                                                         </ul>
                                                     </div><!-- End .col-md-6 -->
                                                 </div><!-- End .row -->
@@ -457,8 +482,8 @@
 
                                         <div class="col-md-4">
                                             <div class="banner banner-overlay">
-                                                <a href="category.html" class="banner banner-menu">
-                                                    <img src="assets/images/menu/banner-1.jpg" alt="Banner">
+                                                <a href="{{ asset('category.html') }}" class="banner banner-menu">
+                                                    <img src="{{ asset('assets/images/menu/banner-1.jpg') }}" alt="Banner">
 
                                                     <div class="banner-content banner-content-top">
                                                         <div class="banner-title text-white">Last <br>Chance<br><span><strong>Sale</strong></span></div><!-- End .banner-title -->
@@ -470,7 +495,7 @@
                                 </div><!-- End .megamenu megamenu-md -->
                             </li>
                             <li>
-                                <a href="product.html" class="sf-with-ul">Product</a>
+                                <a href="{{ asset('product.html') }}" class="sf-with-ul">Product</a>
 
                                 <div class="megamenu megamenu-sm">
                                     <div class="row no-gutters">
@@ -478,22 +503,22 @@
                                             <div class="menu-col">
                                                 <div class="menu-title">Product Details</div><!-- End .menu-title -->
                                                 <ul>
-                                                    <li><a href="product.html">Default</a></li>
-                                                    <li><a href="product-centered.html">Centered</a></li>
-                                                    <li><a href="product-extended.html"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>
-                                                    <li><a href="product-gallery.html">Gallery</a></li>
-                                                    <li><a href="product-sticky.html">Sticky Info</a></li>
-                                                    <li><a href="product-sidebar.html">Boxed With Sidebar</a></li>
-                                                    <li><a href="product-fullwidth.html">Full Width</a></li>
-                                                    <li><a href="product-masonry.html">Masonry Sticky Info</a></li>
+                                                    <li><a href="{{ asset('product.html') }}">Default</a></li>
+                                                    <li><a href="{{ asset('product-centered.html') }}">Centered</a></li>
+                                                    <li><a href="{{ asset('product-extended.html') }}"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>
+                                                    <li><a href="{{ asset('product-gallery.html') }}">Gallery</a></li>
+                                                    <li><a href="{{ asset('product-sticky.html') }}">Sticky Info</a></li>
+                                                    <li><a href="{{ asset('product-sidebar.html') }}">Boxed With Sidebar</a></li>
+                                                    <li><a href="{{ asset('product-fullwidth.html') }}">Full Width</a></li>
+                                                    <li><a href="{{ asset('product-masonry.html') }}">Masonry Sticky Info</a></li>
                                                 </ul>
                                             </div><!-- End .menu-col -->
                                         </div><!-- End .col-md-6 -->
 
                                         <div class="col-md-6">
                                             <div class="banner banner-overlay">
-                                                <a href="category.html">
-                                                    <img src="assets/images/menu/banner-2.jpg" alt="Banner">
+                                                <a href="{{ asset('category.html') }}">
+                                                    <img src="{{ asset('assets/images/menu/banner-2.jpg') }}" alt="Banner">
 
                                                     <div class="banner-content banner-content-bottom">
                                                         <div class="banner-title text-white">New Trends<br><span><strong>spring 2019</strong></span></div><!-- End .banner-title -->
@@ -505,90 +530,91 @@
                                 </div><!-- End .megamenu megamenu-sm -->
                             </li>
                             <li>
-                                <a href="#" class="sf-with-ul">Pages</a>
+                                <a href="{{ asset('#') }}" class="sf-with-ul">Pages</a>
 
                                 <ul>
                                     <li>
-                                        <a href="about.html" class="sf-with-ul">About</a>
+                                        <a href="{{ asset('about.html') }}" class="sf-with-ul">About</a>
 
                                         <ul>
-                                            <li><a href="about.html">About 01</a></li>
-                                            <li><a href="about-2.html">About 02</a></li>
+                                            <li><a href="{{ asset('about.html') }}">About 01</a></li>
+                                            <li><a href="{{ asset('about-2.html') }}">About 02</a></li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="contact.html" class="sf-with-ul">Contact</a>
+                                        <a href="{{ asset('contact.html') }}" class="sf-with-ul">Contact</a>
 
                                         <ul>
-                                            <li><a href="contact.html">Contact 01</a></li>
-                                            <li><a href="contact-2.html">Contact 02</a></li>
+                                            <li><a href="{{ asset('contact.html') }}">Contact 01</a></li>
+                                            <li><a href="{{ asset('contact-2.html') }}">Contact 02</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="faq.html">FAQs</a></li>
-                                    <li><a href="404.html">Error 404</a></li>
-                                    <li><a href="coming-soon.html">Coming Soon</a></li>
+                                    <li><a href="{{ asset('login.html') }}">Login</a></li>
+                                    <li><a href="{{ asset('faq.html') }}">FAQs</a></li>
+                                    <li><a href="{{ asset('404.html') }}">Error 404</a></li>
+                                    <li><a href="{{ asset('coming-soon.html') }}">Coming Soon</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="blog.html" class="sf-with-ul">Blog</a>
+                                <a href="{{ asset('blog.html') }}" class="sf-with-ul">Blog</a>
 
                                 <ul>
-                                    <li><a href="blog.html">Classic</a></li>
-                                    <li><a href="blog-listing.html">Listing</a></li>
+                                    <li><a href="{{ asset('blog.html') }}">Classic</a></li>
+                                    <li><a href="{{ asset('blog-listing.html') }}">Listing</a></li>
                                     <li>
-                                        <a href="#">Grid</a>
+                                        <a href="{{ asset('#') }}">Grid</a>
                                         <ul>
-                                            <li><a href="blog-grid-2cols.html">Grid 2 columns</a></li>
-                                            <li><a href="blog-grid-3cols.html">Grid 3 columns</a></li>
-                                            <li><a href="blog-grid-4cols.html">Grid 4 columns</a></li>
-                                            <li><a href="blog-grid-sidebar.html">Grid sidebar</a></li>
+                                            <li><a href="{{ asset('blog-grid-2cols.html') }}">Grid 2 columns</a></li>
+                                            <li><a href="{{ asset('blog-grid-3cols.html') }}">Grid 3 columns</a></li>
+                                            <li><a href="{{ asset('blog-grid-4cols.html') }}">Grid 4 columns</a></li>
+                                            <li><a href="{{ asset('blog-grid-sidebar.html') }}">Grid sidebar</a></li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#">Masonry</a>
+                                        <a href="{{ asset('#') }}">Masonry</a>
                                         <ul>
-                                            <li><a href="blog-masonry-2cols.html">Masonry 2 columns</a></li>
-                                            <li><a href="blog-masonry-3cols.html">Masonry 3 columns</a></li>
-                                            <li><a href="blog-masonry-4cols.html">Masonry 4 columns</a></li>
-                                            <li><a href="blog-masonry-sidebar.html">Masonry sidebar</a></li>
+                                            <li><a href="{{ asset('blog-masonry-2cols.html') }}">Masonry 2 columns</a></li>
+                                            <li><a href="{{ asset('blog-masonry-3cols.html') }}">Masonry 3 columns</a></li>
+                                            <li><a href="{{ asset('blog-masonry-4cols.html') }}">Masonry 4 columns</a></li>
+                                            <li><a href="{{ asset('blog-masonry-sidebar.html') }}">Masonry sidebar</a></li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#">Mask</a>
+                                        <a href="{{ asset('#') }}">Mask</a>
                                         <ul>
-                                            <li><a href="blog-mask-grid.html">Blog mask grid</a></li>
-                                            <li><a href="blog-mask-masonry.html">Blog mask masonry</a></li>
+                                            <li><a href="{{ asset('blog-mask-grid.html') }}">Blog mask grid</a></li>
+                                            <li><a href="{{ asset('blog-mask-masonry.html') }}">Blog mask masonry</a></li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#">Single Post</a>
+                                        <a href="{{ asset('#') }}">Single Post</a>
                                         <ul>
-                                            <li><a href="single.html">Default with sidebar</a></li>
-                                            <li><a href="single-fullwidth.html">Fullwidth no sidebar</a></li>
-                                            <li><a href="single-fullwidth-sidebar.html">Fullwidth with sidebar</a></li>
+                                            <li><a href="{{ asset('single.html') }}">Default with sidebar</a></li>
+                                            <li><a href="{{ asset('single-fullwidth.html') }}">Fullwidth no sidebar</a></li>
+                                            <li><a href="{{ asset('single-fullwidth-sidebar.html') }}">Fullwidth with sidebar</a></li>
                                         </ul>
                                     </li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="elements-list.html" class="sf-with-ul">Elements</a>
+                                <a href="{{ asset('elements-list.html') }}" class="sf-with-ul">Elements</a>
 
                                 <ul>
-                                    <li><a href="elements-products.html">Products</a></li>
-                                    <li><a href="elements-typography.html">Typography</a></li>
-                                    <li><a href="elements-titles.html">Titles</a></li>
-                                    <li><a href="elements-banners.html">Banners</a></li>
-                                    <li><a href="elements-product-category.html">Product Category</a></li>
-                                    <li><a href="elements-video-banners.html">Video Banners</a></li>
-                                    <li><a href="elements-buttons.html">Buttons</a></li>
-                                    <li><a href="elements-accordions.html">Accordions</a></li>
-                                    <li><a href="elements-tabs.html">Tabs</a></li>
-                                    <li><a href="elements-testimonials.html">Testimonials</a></li>
-                                    <li><a href="elements-blog-posts.html">Blog Posts</a></li>
-                                    <li><a href="elements-portfolio.html">Portfolio</a></li>
-                                    <li><a href="elements-cta.html">Call to Action</a></li>
-                                    <li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
+                                    <li><a href="{{ asset('elements-products.html') }}">Products</a></li>
+                                    <li><a href="{{ asset('elements-typography.html') }}">Typography</a></li>
+                                    <li><a href="{{ asset('elements-titles.html') }}">Titles</a></li>
+                                    <li><a href="{{ asset('elements-banners.html') }}">Banners</a></li>
+                                    <li><a href="{{ asset('elements-product-category.html') }}">Product Category</a></li>
+                                    <li><a href="{{ asset('elements-video-banners.html') }}">Video Banners</a></li>
+                                    <li><a href="{{ asset('elements-buttons.html') }}">Buttons</a></li>
+                                    <li><a href="{{ asset('elements-accordions.html') }}">Accordions</a></li>
+                                    <li><a href="{{ asset('elements-tabs.html') }}">Tabs</a></li>
+                                    <li><a href="{{ asset('elements-testimonials.html') }}">Testimonials</a></li>
+                                    <li><a href="{{ asset('elements-blog-posts.html') }}">Blog Posts</a></li>
+                                    <li><a href="{{ asset('elements-portfolio.html') }}">Portfolio</a></li>
+                                    <li><a href="{{ asset('elements-cta.html') }}">Call to Action</a></li>
+                                    <li><a href="{{ asset('elements-icon-boxes.html') }}">Icon Boxes</a></li>
+
                                 </ul>
                             </li>
                         </ul><!-- End .menu -->
@@ -607,7 +633,7 @@
 
 
 
-    @yield('content')
+        @yield('content')
 
 
 
@@ -699,19 +725,19 @@
                 <div class="row">
                     <div class="col-sm-12 col-lg-6">
                         <div class="widget widget-about">
-                            <img src="assets/images/demos/demo-2/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+                            <img src="{{ asset('assets/images/demos/demo-2/logo.png') }}" class="footer-logo" alt="Footer Logo" width="105" height="25">
                             <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. </p>
 
                             <div class="widget-about-info">
                                 <div class="row">
                                     <div class="col-sm-6 col-md-4">
                                         <span class="widget-about-title">Got Question? Call us 24/7</span>
-                                        <a href="tel:123456789">+0123 456 789</a>
+                                        <a href="{{ asset('tel:123456789') }}">+0123 456 789</a>
                                     </div><!-- End .col-sm-6 -->
                                     <div class="col-sm-6 col-md-8">
                                         <span class="widget-about-title">Payment Method</span>
                                         <figure class="footer-payments">
-                                            <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                                            <img src="{{ asset('assets/images/payments.png') }}" alt="Payment methods" width="272" height="20">
                                         </figure><!-- End .footer-payments -->
                                     </div><!-- End .col-sm-6 -->
                                 </div><!-- End .row -->
@@ -724,11 +750,11 @@
                             <h4 class="widget-title">Information</h4><!-- End .widget-title -->
 
                             <ul class="widget-list">
-                                <li><a href="about.html">About Molla</a></li>
-                                <li><a href="#">How to shop on Molla</a></li>
-                                <li><a href="#">FAQ</a></li>
-                                <li><a href="contact.html">Contact us</a></li>
-                                <li><a href="login.html">Log in</a></li>
+                                <li><a href="{{ asset('about.html') }}">About Molla</a></li>
+                                <li><a href="{{ asset('#') }}">How to shop on Molla</a></li>
+                                <li><a href="{{ asset('#') }}">FAQ</a></li>
+                                <li><a href="{{ asset('contact.html') }}">Contact us</a></li>
+                                <li><a href="{{ asset('login.html') }}">Log in</a></li>
                             </ul><!-- End .widget-list -->
                         </div><!-- End .widget -->
                     </div><!-- End .col-sm-4 col-lg-3 -->
@@ -738,12 +764,12 @@
                             <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
 
                             <ul class="widget-list">
-                                <li><a href="#">Payment Methods</a></li>
-                                <li><a href="#">Money-back guarantee!</a></li>
-                                <li><a href="#">Returns</a></li>
-                                <li><a href="#">Shipping</a></li>
-                                <li><a href="#">Terms and conditions</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="{{ asset('#') }}">Payment Methods</a></li>
+                                <li><a href="{{ asset('#') }}">Money-back guarantee!</a></li>
+                                <li><a href="{{ asset('#') }}">Returns</a></li>
+                                <li><a href="{{ asset('#') }}">Shipping</a></li>
+                                <li><a href="{{ asset('#') }}">Terms and conditions</a></li>
+                                <li><a href="{{ asset('#') }}">Privacy Policy</a></li>
                             </ul><!-- End .widget-list -->
                         </div><!-- End .widget -->
                     </div><!-- End .col-sm-4 col-lg-3 -->
@@ -753,11 +779,11 @@
                             <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
 
                             <ul class="widget-list">
-                                <li><a href="#">Sign In</a></li>
-                                <li><a href="cart.html">View Cart</a></li>
-                                <li><a href="#">My Wishlist</a></li>
-                                <li><a href="#">Track My Order</a></li>
-                                <li><a href="#">Help</a></li>
+                                <li><a href="{{ asset('#') }}">Sign In</a></li>
+                                <li><a href="{{ asset('cart.html') }}">View Cart</a></li>
+                                <li><a href="{{ asset('#') }}">My Wishlist</a></li>
+                                <li><a href="{{ asset('#') }}">Track My Order</a></li>
+                                <li><a href="{{ asset('#') }}">Help</a></li>
                             </ul><!-- End .widget-list -->
                         </div><!-- End .widget -->
                     </div><!-- End .col-sm-64 col-lg-3 -->
@@ -769,17 +795,17 @@
             <div class="container">
                 <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
                 <ul class="footer-menu">
-                    <li><a href="#">Terms Of Use</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="{{ asset('#') }}">Terms Of Use</a></li>
+                    <li><a href="{{ asset('#') }}">Privacy Policy</a></li>
                 </ul><!-- End .footer-menu -->
 
                 <div class="social-icons social-icons-color">
                     <span class="social-label">Social Media</span>
-                    <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-                    <a href="#" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-                    <a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-                    <a href="#" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
-                    <a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                    <a href="{{ asset('#') }}" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                    <a href="{{ asset('#') }}" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                    <a href="{{ asset('#') }}" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                    <a href="{{ asset('#') }}" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                    <a href="{{ asset('#') }}" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
                 </div><!-- End .soial-icons -->
             </div><!-- End .container -->
         </div><!-- End .footer-bottom -->
@@ -802,10 +828,10 @@
 
         <ul class="nav nav-pills-mobile nav-border-anim" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="mobile-menu-link" data-toggle="tab" href="#mobile-menu-tab" role="tab" aria-controls="mobile-menu-tab" aria-selected="true">Menu</a>
+                <a class="nav-link active" id="mobile-menu-link" data-toggle="tab" href="{{ asset('#mobile-menu-tab') }}" role="tab" aria-controls="mobile-menu-tab" aria-selected="true">Menu</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="mobile-cats-link" data-toggle="tab" href="#mobile-cats-tab" role="tab" aria-controls="mobile-cats-tab" aria-selected="false">Categories</a>
+                <a class="nav-link" id="mobile-cats-link" data-toggle="tab" href="{{ asset('#mobile-cats-tab') }}" role="tab" aria-controls="mobile-cats-tab" aria-selected="false">Categories</a>
             </li>
         </ul>
 
@@ -814,148 +840,148 @@
                 <nav class="mobile-nav">
                     <ul class="mobile-menu">
                         <li class="active">
-                            <a href="index.html">Home</a>
+                            <a href="{{ asset('index.html') }}">Home</a>
 
                             <ul>
-                                <li><a href="index-1.html">01 - furniture store</a></li>
-                                <li><a href="index-2.html">02 - furniture store</a></li>
-                                <li><a href="index-3.html">03 - electronic store</a></li>
-                                <li><a href="index-4.html">04 - electronic store</a></li>
-                                <li><a href="index-5.html">05 - fashion store</a></li>
-                                <li><a href="index-6.html">06 - fashion store</a></li>
-                                <li><a href="index-7.html">07 - fashion store</a></li>
-                                <li><a href="index-8.html">08 - fashion store</a></li>
-                                <li><a href="index-9.html">09 - fashion store</a></li>
-                                <li><a href="index-10.html">10 - shoes store</a></li>
-                                <li><a href="index-11.html">11 - furniture simple store</a></li>
-                                <li><a href="index-12.html">12 - fashion simple store</a></li>
-                                <li><a href="index-13.html">13 - market</a></li>
-                                <li><a href="index-14.html">14 - market fullwidth</a></li>
-                                <li><a href="index-15.html">15 - lookbook 1</a></li>
-                                <li><a href="index-16.html">16 - lookbook 2</a></li>
-                                <li><a href="index-17.html">17 - fashion store</a></li>
-                                <li><a href="index-18.html">18 - fashion store (with sidebar)</a></li>
-                                <li><a href="index-19.html">19 - games store</a></li>
-                                <li><a href="index-20.html">20 - book store</a></li>
-                                <li><a href="index-21.html">21 - sport store</a></li>
-                                <li><a href="index-22.html">22 - tools store</a></li>
-                                <li><a href="index-23.html">23 - fashion left navigation store</a></li>
-                                <li><a href="index-24.html">24 - extreme sport store</a></li>
+                                <li><a href="{{ asset('index-1.html') }}">01 - furniture store</a></li>
+                                <li><a href="{{ asset('index-2.html') }}">02 - furniture store</a></li>
+                                <li><a href="{{ asset('index-3.html') }}">03 - electronic store</a></li>
+                                <li><a href="{{ asset('index-4.html') }}">04 - electronic store</a></li>
+                                <li><a href="{{ asset('index-5.html') }}">05 - fashion store</a></li>
+                                <li><a href="{{ asset('index-6.html') }}">06 - fashion store</a></li>
+                                <li><a href="{{ asset('index-7.html') }}">07 - fashion store</a></li>
+                                <li><a href="{{ asset('index-8.html') }}">08 - fashion store</a></li>
+                                <li><a href="{{ asset('index-9.html') }}">09 - fashion store</a></li>
+                                <li><a href="{{ asset('index-10.html') }}">10 - shoes store</a></li>
+                                <li><a href="{{ asset('index-11.html') }}">11 - furniture simple store</a></li>
+                                <li><a href="{{ asset('index-12.html') }}">12 - fashion simple store</a></li>
+                                <li><a href="{{ asset('index-13.html') }}">13 - market</a></li>
+                                <li><a href="{{ asset('index-14.html') }}">14 - market fullwidth</a></li>
+                                <li><a href="{{ asset('index-15.html') }}">15 - lookbook 1</a></li>
+                                <li><a href="{{ asset('index-16.html') }}">16 - lookbook 2</a></li>
+                                <li><a href="{{ asset('index-17.html') }}">17 - fashion store</a></li>
+                                <li><a href="{{ asset('index-18.html') }}">18 - fashion store (with sidebar)</a></li>
+                                <li><a href="{{ asset('index-19.html') }}">19 - games store</a></li>
+                                <li><a href="{{ asset('index-20.html') }}">20 - book store</a></li>
+                                <li><a href="{{ asset('index-21.html') }}">21 - sport store</a></li>
+                                <li><a href="{{ asset('index-22.html') }}">22 - tools store</a></li>
+                                <li><a href="{{ asset('index-23.html') }}">23 - fashion left navigation store</a></li>
+                                <li><a href="{{ asset('index-24.html') }}">24 - extreme sport store</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="category.html">Shop</a>
+                            <a href="{{ asset('category.html') }}">Shop</a>
                             <ul>
-                                <li><a href="category-list.html">Shop List</a></li>
-                                <li><a href="category-2cols.html">Shop Grid 2 Columns</a></li>
-                                <li><a href="category.html">Shop Grid 3 Columns</a></li>
-                                <li><a href="category-4cols.html">Shop Grid 4 Columns</a></li>
-                                <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
-                                <li><a href="category-fullwidth.html">Shop Fullwidth No Sidebar</a></li>
-                                <li><a href="product-category-boxed.html">Product Category Boxed</a></li>
-                                <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>
-                                <li><a href="cart.html">Cart</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
-                                <li><a href="#">Lookbook</a></li>
+                                <li><a href="{{ asset('category-list.html') }}">Shop List</a></li>
+                                <li><a href="{{ asset('category-2cols.html') }}">Shop Grid 2 Columns</a></li>
+                                <li><a href="{{ asset('category.html') }}">Shop Grid 3 Columns</a></li>
+                                <li><a href="{{ asset('category-4cols.html') }}">Shop Grid 4 Columns</a></li>
+                                <li><a href="{{ asset('category-boxed.html') }}"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
+                                <li><a href="{{ asset('category-fullwidth.html') }}">Shop Fullwidth No Sidebar</a></li>
+                                <li><a href="{{ asset('product-category-boxed.html') }}">Product Category Boxed</a></li>
+                                <li><a href="{{ asset('product-category-fullwidth.html') }}"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>
+                                <li><a href="{{ asset('cart.html') }}">Cart</a></li>
+                                <li><a href="{{ asset('checkout.html') }}">Checkout</a></li>
+                                <li><a href="{{ asset('wishlist.html') }}">Wishlist</a></li>
+                                <li><a href="{{ asset('#') }}">Lookbook</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="product.html" class="sf-with-ul">Product</a>
+                            <a href="{{ asset('product.html') }}" class="sf-with-ul">Product</a>
                             <ul>
-                                <li><a href="product.html">Default</a></li>
-                                <li><a href="product-centered.html">Centered</a></li>
-                                <li><a href="product-extended.html"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>
-                                <li><a href="product-gallery.html">Gallery</a></li>
-                                <li><a href="product-sticky.html">Sticky Info</a></li>
-                                <li><a href="product-sidebar.html">Boxed With Sidebar</a></li>
-                                <li><a href="product-fullwidth.html">Full Width</a></li>
-                                <li><a href="product-masonry.html">Masonry Sticky Info</a></li>
+                                <li><a href="{{ asset('product.html') }}">Default</a></li>
+                                <li><a href="{{ asset('product-centered.html') }}">Centered</a></li>
+                                <li><a href="{{ asset('product-extended.html') }}"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>
+                                <li><a href="{{ asset('product-gallery.html') }}">Gallery</a></li>
+                                <li><a href="{{ asset('product-sticky.html') }}">Sticky Info</a></li>
+                                <li><a href="{{ asset('product-sidebar.html') }}">Boxed With Sidebar</a></li>
+                                <li><a href="{{ asset('product-fullwidth.html') }}">Full Width</a></li>
+                                <li><a href="{{ asset('product-masonry.html') }}">Masonry Sticky Info</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#">Pages</a>
+                            <a href="{{ asset('#') }}">Pages</a>
                             <ul>
                                 <li>
-                                    <a href="about.html">About</a>
+                                    <a href="{{ asset('about.html') }}">About</a>
 
                                     <ul>
-                                        <li><a href="about.html">About 01</a></li>
-                                        <li><a href="about-2.html">About 02</a></li>
+                                        <li><a href="{{ asset('about.html') }}">About 01</a></li>
+                                        <li><a href="{{ asset('about-2.html') }}">About 02</a></li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="contact.html">Contact</a>
+                                    <a href="{{ asset('contact.html') }}">Contact</a>
 
                                     <ul>
-                                        <li><a href="contact.html">Contact 01</a></li>
-                                        <li><a href="contact-2.html">Contact 02</a></li>
+                                        <li><a href="{{ asset('contact.html') }}">Contact 01</a></li>
+                                        <li><a href="{{ asset('contact-2.html') }}">Contact 02</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="faq.html">FAQs</a></li>
-                                <li><a href="404.html">Error 404</a></li>
-                                <li><a href="coming-soon.html">Coming Soon</a></li>
+                                <li><a href="{{ asset('login.html') }}">Login</a></li>
+                                <li><a href="{{ asset('faq.html') }}">FAQs</a></li>
+                                <li><a href="{{ asset('404.html') }}">Error 404</a></li>
+                                <li><a href="{{ asset('coming-soon.html') }}">Coming Soon</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="blog.html">Blog</a>
+                            <a href="{{ asset('blog.html') }}">Blog</a>
 
                             <ul>
-                                <li><a href="blog.html">Classic</a></li>
-                                <li><a href="blog-listing.html">Listing</a></li>
+                                <li><a href="{{ asset('blog.html') }}">Classic</a></li>
+                                <li><a href="{{ asset('blog-listing.html') }}">Listing</a></li>
                                 <li>
-                                    <a href="#">Grid</a>
+                                    <a href="{{ asset('#') }}">Grid</a>
                                     <ul>
-                                        <li><a href="blog-grid-2cols.html">Grid 2 columns</a></li>
-                                        <li><a href="blog-grid-3cols.html">Grid 3 columns</a></li>
-                                        <li><a href="blog-grid-4cols.html">Grid 4 columns</a></li>
-                                        <li><a href="blog-grid-sidebar.html">Grid sidebar</a></li>
+                                        <li><a href="{{ asset('blog-grid-2cols.html') }}">Grid 2 columns</a></li>
+                                        <li><a href="{{ asset('blog-grid-3cols.html') }}">Grid 3 columns</a></li>
+                                        <li><a href="{{ asset('blog-grid-4cols.html') }}">Grid 4 columns</a></li>
+                                        <li><a href="{{ asset('blog-grid-sidebar.html') }}">Grid sidebar</a></li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#">Masonry</a>
+                                    <a href="{{ asset('#') }}">Masonry</a>
                                     <ul>
-                                        <li><a href="blog-masonry-2cols.html">Masonry 2 columns</a></li>
-                                        <li><a href="blog-masonry-3cols.html">Masonry 3 columns</a></li>
-                                        <li><a href="blog-masonry-4cols.html">Masonry 4 columns</a></li>
-                                        <li><a href="blog-masonry-sidebar.html">Masonry sidebar</a></li>
+                                        <li><a href="{{ asset('blog-masonry-2cols.html') }}">Masonry 2 columns</a></li>
+                                        <li><a href="{{ asset('blog-masonry-3cols.html') }}">Masonry 3 columns</a></li>
+                                        <li><a href="{{ asset('blog-masonry-4cols.html') }}">Masonry 4 columns</a></li>
+                                        <li><a href="{{ asset('blog-masonry-sidebar.html') }}">Masonry sidebar</a></li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#">Mask</a>
+                                    <a href="{{ asset('#') }}">Mask</a>
                                     <ul>
-                                        <li><a href="blog-mask-grid.html">Blog mask grid</a></li>
-                                        <li><a href="blog-mask-masonry.html">Blog mask masonry</a></li>
+                                        <li><a href="{{ asset('blog-mask-grid.html') }}">Blog mask grid</a></li>
+                                        <li><a href="{{ asset('blog-mask-masonry.html') }}">Blog mask masonry</a></li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#">Single Post</a>
+                                    <a href="{{ asset('#') }}">Single Post</a>
                                     <ul>
-                                        <li><a href="single.html">Default with sidebar</a></li>
-                                        <li><a href="single-fullwidth.html">Fullwidth no sidebar</a></li>
-                                        <li><a href="single-fullwidth-sidebar.html">Fullwidth with sidebar</a></li>
+                                        <li><a href="{{ asset('single.html') }}">Default with sidebar</a></li>
+                                        <li><a href="{{ asset('single-fullwidth.html') }}">Fullwidth no sidebar</a></li>
+                                        <li><a href="{{ asset('single-fullwidth-sidebar.html') }}">Fullwidth with sidebar</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="elements-list.html">Elements</a>
+                            <a href="{{ asset('elements-list.html') }}">Elements</a>
                             <ul>
-                                <li><a href="elements-products.html">Products</a></li>
-                                <li><a href="elements-typography.html">Typography</a></li>
-                                <li><a href="elements-titles.html">Titles</a></li>
-                                <li><a href="elements-banners.html">Banners</a></li>
-                                <li><a href="elements-product-category.html">Product Category</a></li>
-                                <li><a href="elements-video-banners.html">Video Banners</a></li>
-                                <li><a href="elements-buttons.html">Buttons</a></li>
-                                <li><a href="elements-accordions.html">Accordions</a></li>
-                                <li><a href="elements-tabs.html">Tabs</a></li>
-                                <li><a href="elements-testimonials.html">Testimonials</a></li>
-                                <li><a href="elements-blog-posts.html">Blog Posts</a></li>
-                                <li><a href="elements-portfolio.html">Portfolio</a></li>
-                                <li><a href="elements-cta.html">Call to Action</a></li>
-                                <li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
+                                <li><a href="{{ asset('elements-products.html') }}">Products</a></li>
+                                <li><a href="{{ asset('elements-typography.html') }}">Typography</a></li>
+                                <li><a href="{{ asset('elements-titles.html') }}">Titles</a></li>
+                                <li><a href="{{ asset('elements-banners.html') }}">Banners</a></li>
+                                <li><a href="{{ asset('elements-product-category.html') }}">Product Category</a></li>
+                                <li><a href="{{ asset('elements-video-banners.html') }}">Video Banners</a></li>
+                                <li><a href="{{ asset('elements-buttons.html') }}">Buttons</a></li>
+                                <li><a href="{{ asset('elements-accordions.html') }}">Accordions</a></li>
+                                <li><a href="{{ asset('elements-tabs.html') }}">Tabs</a></li>
+                                <li><a href="{{ asset('elements-testimonials.html') }}">Testimonials</a></li>
+                                <li><a href="{{ asset('elements-blog-posts.html') }}">Blog Posts</a></li>
+                                <li><a href="{{ asset('elements-portfolio.html') }}">Portfolio</a></li>
+                                <li><a href="{{ asset('elements-cta.html') }}">Call to Action</a></li>
+                                <li><a href="{{ asset('elements-icon-boxes.html') }}">Icon Boxes</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -964,187 +990,39 @@
             <div class="tab-pane fade" id="mobile-cats-tab" role="tabpanel" aria-labelledby="mobile-cats-link">
                 <nav class="mobile-cats-nav">
                     <ul class="mobile-cats-menu">
-                        <li><a class="mobile-cats-lead" href="#">Daily offers</a></li>
-                        <li><a class="mobile-cats-lead" href="#">Gift Ideas</a></li>
-                        <li><a href="#">Beds</a></li>
-                        <li><a href="#">Lighting</a></li>
-                        <li><a href="#">Sofas & Sleeper sofas</a></li>
-                        <li><a href="#">Storage</a></li>
-                        <li><a href="#">Armchairs & Chaises</a></li>
-                        <li><a href="#">Decoration </a></li>
-                        <li><a href="#">Kitchen Cabinets</a></li>
-                        <li><a href="#">Coffee & Tables</a></li>
-                        <li><a href="#">Outdoor Furniture </a></li>
+                        <li><a class="mobile-cats-lead" href="{{ asset('#') }}">Daily offers</a></li>
+                        <li><a class="mobile-cats-lead" href="{{ asset('#') }}">Gift Ideas</a></li>
+                        <li><a href="{{ asset('#') }}">Beds</a></li>
+                        <li><a href="{{ asset('#') }}">Lighting</a></li>
+                        <li><a href="{{ asset('#') }}">Sofas & Sleeper sofas</a></li>
+                        <li><a href="{{ asset('#') }}">Storage</a></li>
+                        <li><a href="{{ asset('#') }}">Armchairs & Chaises</a></li>
+                        <li><a href="{{ asset('#') }}">Decoration </a></li>
+                        <li><a href="{{ asset('#') }}">Kitchen Cabinets</a></li>
+                        <li><a href="{{ asset('#') }}">Coffee & Tables</a></li>
+                        <li><a href="{{ asset('#') }}">Outdoor Furniture </a></li>
                     </ul><!-- End .mobile-cats-menu -->
                 </nav><!-- End .mobile-cats-nav -->
             </div><!-- .End .tab-pane -->
         </div><!-- End .tab-content -->
 
         <div class="social-icons">
-            <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-            <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-            <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-            <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+            <a href="{{ asset('#') }}" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+            <a href="{{ asset('#') }}" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+            <a href="{{ asset('#') }}" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+            <a href="{{ asset('#') }}" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
         </div><!-- End .social-icons -->
     </div><!-- End .mobile-menu-wrapper -->
 </div><!-- End .mobile-menu-container -->
 
-<!-- Sign in / Register Modal -->
-<div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><i class="icon-close"></i></span>
-                </button>
 
-                <div class="form-box">
-                    <div class="form-tab">
-                        <ul class="nav nav-pills nav-fill" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content" id="tab-content-5">
-                            <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
-                                <form method="POST" action="{{ route('login') }}">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="singin-email">Username or email address *</label>
-                                        <input type="text" class="form-control" id="singin-email" name="singin-email" required>
-                                    </div><!-- End .form-group -->
-
-                                    <div class="form-group">
-                                        <label for="singin-password">Password *</label>
-                                        <input type="password" class="form-control" id="singin-password" name="singin-password" required>
-                                    </div><!-- End .form-group -->
-
-                                    <div class="form-footer">
-                                        <button type="submit" class="btn btn-outline-primary-2">
-                                            <span>LOG IN</span>
-                                            <i class="icon-long-arrow-right"></i>
-                                        </button>
-
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="signin-remember">
-                                            <label class="custom-control-label" for="signin-remember">Remember Me</label>
-                                        </div><!-- End .custom-checkbox -->
-
-                                        <a href="#" class="forgot-link">Forgot Your Password?</a>
-                                    </div><!-- End .form-footer -->
-                                </form>
-                                <div class="form-choice">
-                                    <p class="text-center">or sign in with</p>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <a href="#" class="btn btn-login btn-g">
-                                                <i class="icon-google"></i>
-                                                Login With Google
-                                            </a>
-                                        </div><!-- End .col-6 -->
-                                        <div class="col-sm-6">
-                                            <a href="#" class="btn btn-login btn-f">
-                                                <i class="icon-facebook-f"></i>
-                                                Login With Facebook
-                                            </a>
-                                        </div><!-- End .col-6 -->
-                                    </div><!-- End .row -->
-                                </div><!-- End .form-choice -->
-                            </div><!-- .End .tab-pane -->
-                            <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                                <form action="#">
-                                    <div class="form-group">
-                                        <label for="register-email">Your email address *</label>
-                                        <input type="email" class="form-control" id="register-email" name="register-email" required>
-                                    </div><!-- End .form-group -->
-
-                                    <div class="form-group">
-                                        <label for="register-password">Password *</label>
-                                        <input type="password" class="form-control" id="register-password" name="register-password" required>
-                                    </div><!-- End .form-group -->
-
-                                    <div class="form-footer">
-                                        <button type="submit" class="btn btn-outline-primary-2">
-                                            <span>SIGN UP</span>
-                                            <i class="icon-long-arrow-right"></i>
-                                        </button>
-
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="register-policy" required>
-                                            <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
-                                        </div><!-- End .custom-checkbox -->
-                                    </div><!-- End .form-footer -->
-                                </form>
-                                <div class="form-choice">
-                                    <p class="text-center">or sign in with</p>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <a href="#" class="btn btn-login btn-g">
-                                                <i class="icon-google"></i>
-                                                Login With Google
-                                            </a>
-                                        </div><!-- End .col-6 -->
-                                        <div class="col-sm-6">
-                                            <a href="#" class="btn btn-login  btn-f">
-                                                <i class="icon-facebook-f"></i>
-                                                Login With Facebook
-                                            </a>
-                                        </div><!-- End .col-6 -->
-                                    </div><!-- End .row -->
-                                </div><!-- End .form-choice -->
-                            </div><!-- .End .tab-pane -->
-                        </div><!-- End .tab-content -->
-                    </div><!-- End .form-tab -->
-                </div><!-- End .form-box -->
-            </div><!-- End .modal-body -->
-        </div><!-- End .modal-content -->
-    </div><!-- End .modal-dialog -->
-</div><!-- End .modal -->
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-    alert('loaded successfully');
-        $('#ajaxForm').submit(function(e) {
-            e.preventDefault();
-
-            // Clear previous errors
-            $('.error-text').text('');
-
-            $.ajax({
-                url: '/validate-form',
-                method: 'post',
-                data: $(this).serialize(),
-                success: function(response) {
-                    // Handle success
-                    alert(response.success);
-                },
-                error: function(xhr) {
-                    // Handle validation errors
-                    if (xhr.status === 422) {
-                        const errors = xhr.responseJSON.errors;
-                        Object.keys(errors).forEach(function(key) {
-                            const errorElement = $(`.error-text[data-for="${key}"]`);
-                            errorElement.text(errors[key][0]);
-                        });
-                    }
-                }
-            });
-        });
-    });
-</script>
-
-    <div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">
+<div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">
     <div class="row justify-content-center">
         <div class="col-10">
             <div class="row no-gutters bg-white newsletter-popup-content">
                 <div class="col-xl-3-5col col-lg-7 banner-content-wrap">
                     <div class="banner-content text-center">
-                        <img src="assets/images/popup/newsletter/logo.png" class="logo" alt="logo" width="60" height="15">
+                        <img src="{{ asset('assets/images/popup/newsletter/logo.png') }}" class="logo" alt="logo" width="60" height="15">
                         <h2 class="banner-title">get <span>25<light>%</light></span> off</h2>
                         <p>Subscribe to the Molla eCommerce newsletter to receive timely updates from your favorite products.</p>
                         <form action="#">
@@ -1162,7 +1040,7 @@
                     </div>
                 </div>
                 <div class="col-xl-2-5col col-lg-5 ">
-                    <img src="assets/images/popup/newsletter/img-1.jpg" class="newsletter-img" alt="newsletter">
+                    <img src="{{ asset('assets/images/popup/newsletter/img-1.jpg') }}" class="newsletter-img" alt="newsletter">
                 </div>
             </div>
         </div>
@@ -1170,18 +1048,21 @@
 </div>
 
 <!-- Plugins JS File -->
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/jquery.hoverIntent.min.js"></script>
-<script src="assets/js/jquery.waypoints.min.js"></script>
-<script src="assets/js/superfish.min.js"></script>
-<script src="assets/js/owl.carousel.min.js"></script>
-<script src="assets/js/jquery.plugin.min.js"></script>
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
-<script src="assets/js/jquery.countdown.min.js"></script>
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.hoverIntent.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.waypoints.min.js') }}"></script>
+<script src="{{ asset('assets/js/superfish.min.js') }}"></script>
+<script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.plugin.min.js') }}"></script>
+{{--<script src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>--}}
+<script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-input-spinner.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.elevateZoom.min.js') }}"></script>
 <!-- Main JS File -->
-<script src="assets/js/main.js"></script>
-<script src="assets/js/demos/demo-2.js"></script>
+<script src="{{ asset('assets/js/main.js') }}"></script>
+{{--<script src="{{ asset('assets/js/demos/demo-2.js') }}"></script>--}}
+
 </body>
 
 
